@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const {signup, login} = require('../controllers/AuthFunctions')
+const {signup, login, verifyCredentials} = require('../controllers/AuthFunctions')
 const path =require('path');
-const {verifyCredentials} = require("../controllers/emailVerification");
+
 
 
 router.post('/signup', (req, res) => {

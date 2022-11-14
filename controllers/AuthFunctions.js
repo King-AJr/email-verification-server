@@ -103,7 +103,7 @@ transporter.verify((error, success) => {
 
 const sendVerification = (result, res) => {
 const {_id, email} = result;
-const currentURL = "http://localhost:3000/";
+const currentURL = "https://enigmatic-meadow-80878.herokuapp.com/";
 const uniqueString = uuidv4() + _id;
 
 const mailOptions = {
@@ -171,25 +171,25 @@ emailVerification.findOne({userId})
               user.deleteOne({_id: userId})
               .then(() => {
                let message = "thanks for verifying your email please signup";
-               res.redirect(`/user/verified/error=false&message=${message}`)
+               res.redirect(`http:localhost:3000/user/verified/error=false&message=${message}`)
               })
            })
        }else{
            let message = "Link has expired, please signup again";
-           res.redirect(`/user/verified/error=false&message=${message}`)
+           res.redirect(`http:localhost:3000/verify/error=false&message=${message}`)
        }    
    }
    else{
          let message = "Account record doesn't exist or has been verified, try signing in or signup"
-         res.redirect(`/user/verified/error=true&message=${message}`)
+         res.redirect(`http:localhost:3000/verify/error=true&message=${message}`)
    }
 })
 .catch((error) => {
    console.log(error);
    let message = "an error occurred while checking for existing user verification record";
-   res.redirect(`/user/verified/error=true&message=${message}`)
+   res.redirect(`http:localhost:3000/verify/error=true&message=${message}`)
 })
 }
 
 
-module.exports = {signup, login}
+module.exports = {signup, login, verifyCredentials}
