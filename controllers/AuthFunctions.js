@@ -160,7 +160,7 @@ bcrypt.hash(uniqueString, 12)
 
 }
 
-const verifyCredentials = async (userid, uniqueString, res) => {
+const verifyCredentials = (userid, uniqueString, res) => {
    console.log(userid)
 emailVerification.findOne({userid})
 .then((result) => {
@@ -170,7 +170,7 @@ emailVerification.findOne({userid})
        console.log(expiresAt);
        if(expiresAt < Date.now()){
            emailVerification.deleteOne({userid})
-           .then(() => {
+           .then(async () => {
              let verify = await user.updateOne({_id: userid}, {$set: {verified: true}});
              console.log(`verify : ${verify}`);
                let message = "thanks for verifying your email please sign in";
