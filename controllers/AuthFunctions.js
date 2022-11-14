@@ -71,6 +71,11 @@ const login = async(req, res) => {
          message: 'user details not found'
       })
    }
+   if(!existingUser.verified){
+      return res.status(403).json({
+         message: "please verify your account"
+      })
+   }
    let verify = await bcrypt.compare(password, existingUser.password)
    if(verify){
      return res.json({
