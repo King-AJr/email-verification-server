@@ -73,7 +73,7 @@ const login = async(req, res) => {
    }
    if(!existingUser.verified){
       return res.status(403).json({
-         message: "please verify your account"
+         message: "please verify your account",
          success: true
       })
    }
