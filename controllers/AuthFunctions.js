@@ -171,7 +171,7 @@ emailVerification.findOne({userid})
        if(expiresAt < Date.now()){
            emailVerification.deleteOne({userid})
            .then(() => {
-               let message = "thanks for verifying your email please signup";
+               let message = "thanks for verifying your email please sign in";
                res.redirect(`http:localhost:3000/verify/error=false&message=${message}`)
            })
        }else{
