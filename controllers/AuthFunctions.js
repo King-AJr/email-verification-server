@@ -181,7 +181,7 @@ emailVerification.findOne({userid})
              let verify = await user.updateOne({_id: userid}, {$set: {verified: true}});
              console.log(`verify : ${verify}`);
                let message = "thanks for verifying your email please sign in";
-               res.redirect(`http:localhost:3000/verify/error=false&message=${message}`)
+               res.redirect(`http:localhost:3000/verify/:error=false/:message=${message}`)
            })
        }else{
          user.deleteOne({_id: userid})
