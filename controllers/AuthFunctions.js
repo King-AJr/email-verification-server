@@ -161,7 +161,7 @@ bcrypt.hash(uniqueString, 12)
 }
 
 const verifyCredentials = (userid, uniqueString, res) => {
-   console.log(userId)
+   console.log(userid)
 emailVerification.findOne({userid})
 .then((result) => {
    console.log(result);
