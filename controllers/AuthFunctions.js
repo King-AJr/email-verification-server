@@ -160,7 +160,7 @@ bcrypt.hash(uniqueString, 12)
 
 }
 
-const verifyCredentials = (userid, uniqueString, res) => {
+const verifyCredentials = async (userid, uniqueString, res) => {
    console.log(userid)
 emailVerification.findOne({userid})
 .then((result) => {
@@ -171,9 +171,7 @@ emailVerification.findOne({userid})
        if(expiresAt < Date.now()){
            emailVerification.deleteOne({userid})
            .then(() => {
-            let existingUser = user.findOne({_id: userid});
-            console.log(`existing user: ${existingUser}`)
-             let verify = user.updateOne({_id: existingUser._id}, {$set: {verified: true}});
+             let verify = await rbacDB.user.updateOne({_id: userid}, {$set: {verified: true}});
              console.log(`verify : ${verify}`);
                let message = "thanks for verifying your email please sign in";
                res.redirect(`http:localhost:3000/verify/error=false&message=${message}`)
