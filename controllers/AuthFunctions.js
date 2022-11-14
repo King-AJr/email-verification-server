@@ -74,7 +74,7 @@ const login = async(req, res) => {
    if(!existingUser.verified){
       return res.status(403).json({
          message: "please verify your account",
-         success: true
+         login: "successful"
       })
    }
    let verify = await bcrypt.compare(password, existingUser.password)
