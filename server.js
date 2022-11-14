@@ -7,14 +7,15 @@ const userRouter = require('./routes/userRouter')
 require('./model/config/db');
 
 
-const whitelist = ["http://localhost:3000"]
+// const whitelist = ["http://localhost:3000"]
 
-app.use(cors({
-    origin: ["http://localhost:3000"],
-    methods: ["GET", "POST", "DELETE"],
-    credentials: true,
-    origin: true
-}));
+// app.use(cors({
+//     origin: ["http://localhost:3000"],
+//     methods: ["GET", "POST", "DELETE"],
+//     credentials: true,
+//     origin: true
+// }));
+app.use(cors());
 app.use(bp.json());
 app.use(bp.urlencoded({extended: true}));
 
