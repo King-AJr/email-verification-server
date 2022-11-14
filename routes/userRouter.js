@@ -13,9 +13,9 @@ router.post('/login', (req, res) => {
 })
 
 
-router.get('/verify/:userId/:uniqueString', (req, res) => {
-    let {userId, uniqueString} = req.params;
-        verifyCredentials(userId, uniqueString, res);
+router.get('/verify/:userid/:uniqueString', (req, res) => {
+    let {userid, uniqueString} = req.params;
+        verifyCredentials(userid, uniqueString, res);
 
 })
 

@@ -160,22 +160,22 @@ bcrypt.hash(uniqueString, 12)
 
 }
 
-const verifyCredentials = (userId, uniqueString, res) => {
+const verifyCredentials = (userid, uniqueString, res) => {
    console.log(userId)
-emailVerification.findOne({userId})
+emailVerification.findOne({userid})
 .then((result) => {
    console.log(result);
-   if(result.length > 0) {
-       const {expiresAt} = result[0];
+   if(result.userid) {
+       const {expiresAt} = result;
        console.log(expiresAt);
        if(expiresAt < Date.now()){
-           emailVerification.deleteOne({userId})
+           emailVerification.deleteOne({userid})
            .then(() => {
                let message = "thanks for verifying your email please signup";
                res.redirect(`http:localhost:3000/verify/error=false&message=${message}`)
            })
        }else{
-         user.deleteOne({_id: userId})
+         user.deleteOne({_id: userid})
            let message = "Link has expired, please signup again";
            res.redirect(`http:localhost:3000/verify/error=false&message=${message}`)
        }    
