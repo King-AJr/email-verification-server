@@ -171,28 +171,34 @@ const verifyCredentials = (userid, uniqueString, res) => {
    console.log(userid)
 emailVerification.findOne({userid})
 .then((result) => {
-   console.log(result);
-   if(result.userid) {
-       const {expiresAt} = result;
-       console.log(expiresAt);
-       if(expiresAt < Date.now()){
-           emailVerification.deleteOne({userid})
-           .then(async () => {
-             let verify = await user.updateOne({_id: userid}, {$set: {verified: true}});
-             console.log(`verify : ${verify}`);
-               let message = "thanks for verifying your email please sign in";
-               res.redirect(`http:localhost:3000/verify/:error=false/:message=${message}`)
-           })
-       }else{
-         user.deleteOne({_id: userid})
-           let message = "Link has expired, please signup again";
-           res.redirect(`http:localhost:3000/verify/error=false&message=${message}`)
-       }    
+   let unique = await bcrypt.compare(password, existingUser.password)
+   if(unique){
+      if(result.userid) {
+         const {expiresAt} = result;
+         console.log(expiresAt);
+         if(expiresAt < Date.now()){
+             emailVerification.deleteOne({userid})
+             .then(async () => {
+               let verify = await user.updateOne({_id: userid}, {$set: {verified: true}});
+               console.log(`verify : ${verify}`);
+                 let message = "thanks for verifying your email please sign in";
+                 res.redirect(`http:localhost:3000/verify/:error=false/:message=${message}`)
+             })
+         }else{
+           user.deleteOne({_id: userid})
+             let message = "Link has expired, please signup again";
+             res.redirect(`http:localhost:3000/verify/error=true&message=${message}`)
+         }    
+     }
+     else{
+           let message = "Account record doesn't exist or has been verified, try signing in or signup"
+           res.redirect(`http:localhost:3000/verify/error=true&message=${message}`)
+     }
+   }else{
+      let message = "Account record doesn't exist please signup"
+           res.redirect(`http:localhost:3000/verify/error=true&message=${message}`)
    }
-   else{
-         let message = "Account record doesn't exist or has been verified, try signing in or signup"
-         res.redirect(`http:localhost:3000/verify/error=true&message=${message}`)
-   }
+   
 })
 .catch((error) => {
    console.log(error);
