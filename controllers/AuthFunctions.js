@@ -170,7 +170,7 @@ bcrypt.hash(uniqueString, 12)
 const verifyCredentials = (userid, uniqueString, res) => {
    console.log(userid)
 emailVerification.findOne({userid})
-.then((result) => {
+.then(async (result) => {
    let unique = await bcrypt.compare(password, existingUser.password)
    if(unique){
       if(result.userid) {
