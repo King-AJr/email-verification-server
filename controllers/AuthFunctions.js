@@ -171,7 +171,7 @@ const verifyCredentials = (userid, uniqueString, res) => {
    console.log(userid)
 emailVerification.findOne({userid})
 .then(async (result) => {
-   let unique = await bcrypt.compare(password, existingUser.password)
+   let unique = await bcrypt.compare(uniqueString, result.uniqueString)
    if(unique){
       if(result.userid) {
          const {expiresAt} = result;
