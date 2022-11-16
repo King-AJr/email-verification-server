@@ -64,7 +64,7 @@ const signup = async (req, res) => {
 const login = async(req, res) => {
     const { name, email, password } = req.body;
       console.log(password);
-   let existingUser = await user.findOne({name});
+   let existingUser = await user.findOne({email});
    console.log(existingUser);
    if(!existingUser){
       return res.status(403).json({
